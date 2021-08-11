@@ -13,6 +13,7 @@ NetAddress module7;
 
 boolean animation1Flag = true;
 LeapMotion leap;
+int idleId = 1;
 
 void setup() {
   size(800, 500);
@@ -32,52 +33,55 @@ void setup() {
 
 void draw() {
   background(255);
-  while(isInteractionDetected()) {
-    //animationIdle4();
-    for (int j = 1; j < 7; j++) {
-      sendOsc(1, j, animation1Flag);
-      delay(20);
+  if (leap.getHands().size() <= 0) {
+    if (idleId == 1) {
+      animationIdle1();
+    } else if (idleId == 2) {
+      animationIdle2();
+    } else if (idleId == 3) {
+      animationIdle3();
+    } else if (idleId == 4) {
+      animationIdle4();
     }
-    animation1Flag = !animation1Flag;
-    delay(500);
-  }
+  } else {
+    int fps = leap.getFrameRate();
+    int y=0, x=0;
+    for (Hand hand : leap.getHands()) {
   
-  int fps = leap.getFrameRate();
-  int y=0, x=0;
-  for (Hand hand : leap.getHands ()) {
-
-    PVector handPosition       = hand.getPosition();
-    y = (int)map(handPosition.y, 400, 50, 1, 7);
-    x = (int)map(handPosition.x, -100, 1000, 0, 14);
-    println("y:" + y);
-    println("x:" + x);
+      idleId = (int)random(1, 5); // roll idle animation
+      
+      PVector handPosition       = hand.getPosition();
+      y = (int)map(handPosition.y, 400, 50, 1, 7);
+      x = (int)map(handPosition.x, -100, 1000, 0, 14);
+      println("y:" + y);
+      println("x:" + x);
+      
+      hand.draw();
+    }
     
-    hand.draw();
-  }
-  
-  for (int bandIndex = 1; bandIndex < 8; bandIndex++) {
-      for (int pointIndex = 1; pointIndex < 7; pointIndex++) {
-        if (bandIndex <= y) {
-          if (pointIndex <= x && pointIndex >= x-6) {
-            sendOsc(bandIndex, pointIndex, true);
+    for (int bandIndex = 1; bandIndex < 8; bandIndex++) {
+        for (int pointIndex = 1; pointIndex < 7; pointIndex++) {
+          if (bandIndex <= y) {
+            if (pointIndex <= x && pointIndex >= x-6) {
+              sendOsc(bandIndex, pointIndex, true);
+            } else {
+              sendOsc(bandIndex, pointIndex, false);
+            }
           } else {
+            // whole band is off
             sendOsc(bandIndex, pointIndex, false);
           }
-        } else {
-          // whole band is off
-          sendOsc(bandIndex, pointIndex, false);
         }
       }
+  
+    // ====================================================
+    // 7. Devices
+  
+    for (Device device : leap.getDevices()) {
+      float deviceHorizontalViewAngle = device.getHorizontalViewAngle();
+      float deviceVericalViewAngle = device.getVerticalViewAngle();
+      float deviceRange = device.getRange();
     }
-
-
-  // ====================================================
-  // 7. Devices
-
-  for (Device device : leap.getDevices()) {
-    float deviceHorizontalViewAngle = device.getHorizontalViewAngle();
-    float deviceVericalViewAngle = device.getVerticalViewAngle();
-    float deviceRange = device.getRange();
   }
   
 }
