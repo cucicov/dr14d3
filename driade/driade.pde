@@ -30,6 +30,7 @@ SoundFile soundActive;
 SoundFile soundIdle;
 SoundFile soundLeave;
 SoundFile soundEnter;
+SoundFile soundEnters;
 
 boolean isActive = false;
 
@@ -42,6 +43,7 @@ void setup() {
   soundIdle = new SoundFile(this, "idle.wav");
   soundLeave = new SoundFile(this, "leave.wav");
   soundEnter = new SoundFile(this, "enter.wav");
+  soundEnters = new SoundFile(this, "enter_short.wav");
 
   leap = new LeapMotion(this);
   oscP5 = new OscP5(this, 7110);
@@ -143,6 +145,7 @@ void draw() {
     // SOUND
     if (!isActive) {
       soundEnter.play();
+      soundEnters.play();
       isActive = true;
     }
     if (!soundActive.isPlaying()) {
