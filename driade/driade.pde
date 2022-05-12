@@ -1,6 +1,8 @@
 import de.voidplus.leapmotion.*;
 import oscP5.*;
 import netP5.*;
+import processing.sound.*;
+SoundFile file;
 
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -24,10 +26,22 @@ int counterOutOfScope = 30;
 float idleRandom = 0;
 float idleChangeTimeout = 500;
 
+SoundFile soundActive;
+SoundFile soundIdle;
+SoundFile soundLeave;
+SoundFile soundEnter;
+
+boolean isActive = false;
+
 void setup() {
   size(800, 500);
   background(255);
   // ...
+  
+  soundActive = new SoundFile(this, "active.wav");
+  soundIdle = new SoundFile(this, "idle.wav");
+  soundLeave = new SoundFile(this, "leave.wav");
+  soundEnter = new SoundFile(this, "enter.wav");
 
   leap = new LeapMotion(this);
   oscP5 = new OscP5(this, 7110);
@@ -81,9 +95,24 @@ void draw() {
 
   // driade idle
   if (leap.getHands().size() == 0) {
+
+    
+    // SOUND
+    if (isActive) {
+      soundLeave.play();
+      isActive = false;
+    }
+    
+    if (!soundIdle.isPlaying()) {
+      soundIdle.loop();
+    }
+    
+    if (soundActive.isPlaying() && frameCount % 5 == 0) {
+      soundActive.stop();
+    }
     
     counterOutOfScope--;
-    println(idleChangeTimeout);
+    //println(idleChangeTimeout);
     if (counterOutOfScope == 0 || idleChangeTimeout < 0){
       idleRandom = random(1);
       idleChangeTimeout = 500;
@@ -110,6 +139,20 @@ void draw() {
   }
 
   for (Hand hand : leap.getHands ()) {
+    
+    // SOUND
+    if (!isActive) {
+      soundEnter.play();
+      isActive = true;
+    }
+    if (!soundActive.isPlaying()) {
+      soundActive.loop();
+    }
+    
+    if (soundIdle.isPlaying() && frameCount % 5 == 0) {
+      soundIdle.stop();
+    }
+    
 
 
     // ==================================================
