@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 375.0, 345.0, 1333.0, 1033.0 ],
+		"rect" : [ 54.0, 202.0, 1333.0, 1033.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -5518,7 +5518,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 81.5, 1391.757667422294617, 81.0, 22.0 ],
-					"presentation_linecount" : 2,
 					"text" : "/pi1/band 130"
 				}
 
@@ -5580,7 +5579,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 189.5, 753.0, 39.0, 32.0 ],
-					"presentation_linecount" : 2,
 					"text" : "10"
 				}
 

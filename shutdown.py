@@ -22,7 +22,7 @@ def ssh_shutdown(ip, username, password):
     ssh.close()
 
 # Define your target hour (24-hour format)
-target_hour = 19  # For example, 19 represents 7 PM
+target_hour = 22  # For example, 19 represents 7 PM
 
 # Wait for the target hour
 wait_for_hour(target_hour)

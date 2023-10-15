@@ -1,9 +1,10 @@
 from pythonosc import udp_client
 import time
+import random
 
 # Define the IP address and port
 # Create an OSC client
-client1 = udp_client.SimpleUDPClient("127.0.0.1", 7110)
+client1 = udp_client.SimpleUDPClient("192.168.1.101", 7110)
 client2 = udp_client.SimpleUDPClient("192.168.1.102", 7110)
 client3 = udp_client.SimpleUDPClient("192.168.1.103", 7110)
 client4 = udp_client.SimpleUDPClient("192.168.1.104", 7110)
@@ -13,12 +14,12 @@ client7 = udp_client.SimpleUDPClient("192.168.1.107", 7110)
 
 real_pi_ids = {
     1: ["/pi1/band", client1],
-    2: ["/pi2/band", client1],
-    3: ["/pi3/band", client1],
-    4: ["/pi4/band", client1],
-    5: ["/pi5/band", client1],
-    6: ["/pi6/band", client1],
-    7: ["/pi7/band", client1],
+    2: ["/pi2/band", client2],
+    3: ["/pi3/band", client3],
+    4: ["/pi4/band", client4],
+    5: ["/pi5/band", client5],
+    6: ["/pi6/band", client6],
+    7: ["/pi7/band", client7],
 }
 
 
@@ -334,6 +335,7 @@ def send_animation_1():
     # reset previous letter
 
     reset_all()
+    time.sleep(0.1)
     pi_id = 1
     client_osc = get_real_pi_ip(pi_id)
     client_osc.send_message(get_real_pi_id(pi_id), 101)
@@ -444,100 +446,117 @@ def send_animation_1():
     client_osc.send_message(get_real_pi_id(pi_id), 121)
     time.sleep(0.1)
     reset_all()
+
+def run_display_message(words):
+    for word in words:
+        # keep track of each letter index and send to appropriate module.
+        letter_idx = 0
+        for letter in word:
+            letter_idx += 1
+            if letter == "a":
+                send_a(letter_idx)
+            elif letter == "b":
+                send_b(letter_idx)
+            elif letter == "c":
+                send_c(letter_idx)
+            elif letter == "d":
+                send_d(letter_idx)
+            elif letter == "e":
+                send_e(letter_idx)
+            elif letter == "f":
+                send_f(letter_idx)
+            elif letter == "g":
+                send_g(letter_idx)
+            elif letter == "h":
+                send_h(letter_idx)
+            elif letter == "i":
+                send_i(letter_idx)
+            elif letter == "j":
+                send_j(letter_idx)
+            elif letter == "k":
+                send_k(letter_idx)
+            elif letter == "l":
+                send_l(letter_idx)
+            elif letter == "m":
+                send_m(letter_idx)
+            elif letter == "n":
+                send_n(letter_idx)
+            elif letter == "o":
+                send_o(letter_idx)
+            elif letter == "p":
+                send_p(letter_idx)
+            elif letter == "q":
+                send_q(letter_idx)
+            elif letter == "r":
+                send_r(letter_idx)
+            elif letter == "s":
+                send_s(letter_idx)
+            elif letter == "t":
+                send_t(letter_idx)
+            elif letter == "u":
+                send_u(letter_idx)
+            elif letter == "v":
+                send_v(letter_idx)
+            elif letter == "w":
+                send_w(letter_idx)
+            elif letter == "x":
+                send_x(letter_idx)
+            elif letter == "y":
+                send_y(letter_idx)
+            elif letter == "z":
+                send_z(letter_idx)
+            elif letter == "1":
+                send_1(letter_idx)
+            elif letter == "2":
+                send_2(letter_idx)
+            elif letter == "3":
+                send_3(letter_idx)
+            elif letter == "4":
+                send_4(letter_idx)
+            elif letter == "5":
+                send_5(letter_idx)
+            elif letter == "6":
+                send_6(letter_idx)
+            elif letter == "7":
+                send_7(letter_idx)
+            elif letter == "8":
+                send_8(letter_idx)
+            elif letter == "9":
+                send_9(letter_idx)
+            elif letter == "0":
+                send_0(letter_idx)
+            time.sleep(0.03)
+        time.sleep(1)
+        reset_all()
 
 
 
 # Define the file path
 file_path = "texts.txt"  # Replace with your file path
+target_min1 = 9
+target_min2 = 15
+target_min3 = 20
+target_min4 = 45
 
 # Open the file in read mode
-with open(file_path, 'r') as file:
-    # Read each line (sentence) in the file
-    for line in file:
-        # Split the line into individual words
-        words = line.split()
+while True:
+    current_min = time.localtime().tm_min
+    if current_min == target_min1 or current_min == target_min2 or current_min == target_min3 or current_min == target_min4:
+        with open(file_path, 'r') as file:
+            # Read each line (sentence) in the file
+            for line in file:
+                # Split the line into individual words
+                words = line.split()
 
-        # Print each word to the console
-        for word in words:
-            # keep track of each letter index and send to appropriate module.
-            letter_idx = 0
-            for letter in word:
-                letter_idx += 1
-                if letter == "a":
-                    send_a(letter_idx) #TODO: refactor client1
-                elif letter == "b":
-                    send_b(letter_idx) #TODO: refactor client1
-                elif letter == "c":
-                    send_c(letter_idx) #TODO: refactor client1
-                elif letter == "d":
-                    send_d(letter_idx) #TODO: refactor client1
-                elif letter == "e":
-                    send_e(letter_idx) #TODO: refactor client1
-                elif letter == "f":
-                    send_f(letter_idx) #TODO: refactor client1
-                elif letter == "g":
-                    send_g(letter_idx) #TODO: refactor client1
-                elif letter == "h":
-                    send_h(letter_idx) #TODO: refactor client1
-                elif letter == "i":
-                    send_i(letter_idx) #TODO: refactor client1
-                elif letter == "j":
-                    send_j(letter_idx) #TODO: refactor client1
-                elif letter == "k":
-                    send_k(letter_idx) #TODO: refactor client1
-                elif letter == "l":
-                    send_l(letter_idx) #TODO: refactor client1
-                elif letter == "m":
-                    send_m(letter_idx) #TODO: refactor client1
-                elif letter == "n":
-                    send_n(letter_idx) #TODO: refactor client1
-                elif letter == "o":
-                    send_o(letter_idx) #TODO: refactor client1
-                elif letter == "p":
-                    send_p(letter_idx) #TODO: refactor client1
-                elif letter == "q":
-                    send_q(letter_idx) #TODO: refactor client1
-                elif letter == "r":
-                    send_r(letter_idx) #TODO: refactor client1
-                elif letter == "s":
-                    send_s(letter_idx) #TODO: refactor client1
-                elif letter == "t":
-                    send_t(letter_idx) #TODO: refactor client1
-                elif letter == "u":
-                    send_u(letter_idx) #TODO: refactor client1
-                elif letter == "v":
-                    send_v(letter_idx) #TODO: refactor client1
-                elif letter == "w":
-                    send_w(letter_idx) #TODO: refactor client1
-                elif letter == "x":
-                    send_x(letter_idx) #TODO: refactor client1
-                elif letter == "y":
-                    send_y(letter_idx) #TODO: refactor client1
-                elif letter == "z":
-                    send_z(letter_idx) #TODO: refactor client1
-                elif letter == "1":
-                    send_1(letter_idx) #TODO: refactor client1
-                elif letter == "2":
-                    send_2(letter_idx) #TODO: refactor client1
-                elif letter == "3":
-                    send_3(letter_idx) #TODO: refactor client1
-                elif letter == "4":
-                    send_4(letter_idx) #TODO: refactor client1
-                elif letter == "5":
-                    send_5(letter_idx) #TODO: refactor client1
-                elif letter == "6":
-                    send_6(letter_idx) #TODO: refactor client1
-                elif letter == "7":
-                    send_7(letter_idx) #TODO: refactor client1
-                elif letter == "8":
-                    send_8(letter_idx) #TODO: refactor client1
-                elif letter == "9":
-                    send_9(letter_idx) #TODO: refactor client1
-                elif letter == "0":
-                    send_0(letter_idx) #TODO: refactor client1
-                time.sleep(0.03)
-            time.sleep(1)
-            reset_all()
+                random_number = random.randint(1, 10)
+                # print every 10th line randomly
+                if random_number == 1:
+                    print(f"printing: {line}")
+                    # Print each word to the console
+                    run_display_message(words)
+                    send_animation_1()
+                    time.sleep(1)
 
-        send_animation_1()
-        time.sleep(1)
+    else:
+        print(f"Waiting for minute {target_min1}/{target_min2}/{target_min3}/{target_min4}...")
+        time.sleep(50)  # Wait for a minute and check again
