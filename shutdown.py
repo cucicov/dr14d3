@@ -22,18 +22,25 @@ def ssh_shutdown(ip, username, password):
     ssh.close()
 
 # Define your target hour (24-hour format)
-target_hour = 22  # For example, 19 represents 7 PM
+target_hour = 1  # For example, 19 represents 7 PM
 
-# Wait for the target hour
-wait_for_hour(target_hour)
+while True:
 
-# Connect via SSH and shut down the remote computer
-ssh_shutdown("192.168.1.101", "pi", "raspberry")
-ssh_shutdown("192.168.1.102", "pi", "raspberry")
-ssh_shutdown("192.168.1.103", "pi", "raspberry")
-ssh_shutdown("192.168.1.104", "pi", "raspberry")
-ssh_shutdown("192.168.1.105", "pi", "raspberry")
-ssh_shutdown("192.168.1.106", "pi", "raspberry")
-ssh_shutdown("192.168.1.107", "pi", "raspberry")
+    # Wait for the target hour
+    wait_for_hour(target_hour)
 
-os.system("sudo shutdown now")
+    print("shutting down all rpis")
+    try:
+        # Connect via SSH and shut down the remote computer
+        ssh_shutdown("192.168.1.101", "pi", "raspberry")
+        ssh_shutdown("192.168.1.102", "pi", "raspberry")
+        ssh_shutdown("192.168.1.103", "pi", "raspberry")
+        ssh_shutdown("192.168.1.104", "pi", "raspberry")
+        ssh_shutdown("192.168.1.105", "pi", "raspberry")
+        ssh_shutdown("192.168.1.106", "pi", "raspberry")
+        ssh_shutdown("192.168.1.107", "pi", "raspberry")
+        time.sleep(60)
+    except Exception as e:
+        print(f"An exception occured:{e}")
+        pass
+

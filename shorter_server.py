@@ -532,11 +532,11 @@ def run_display_message(words):
 
 
 # Define the file path
-file_path = "texts.txt"  # Replace with your file path
-target_min1 = 9
-target_min2 = 15
-target_min3 = 20
-target_min4 = 45
+file_path = "/home/driade/Documents/dr14d3/texts.txt"  # Replace with your file path
+target_min1 = 15
+target_min2 = 30
+target_min3 = 45
+target_min4 = 0
 
 # Open the file in read mode
 while True:
